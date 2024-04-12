@@ -13,6 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Configure git merge behavior
+        run: git config pull.rebase false
+
       - name: Pull changes from GitLab
         run: |
           git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/manjeetyadav19/docker_test1.git
