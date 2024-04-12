@@ -13,6 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Pull changes from GitLab
+        run: |
+          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/manjeetyadav19/docker_test1.git
+          git pull gitlab main  # Adjust the branch name as needed
+
       - name: Push to GitLab
         run: |
           git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/manjeetyadav19/docker_test1.git
