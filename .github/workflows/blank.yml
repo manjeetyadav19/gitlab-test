@@ -13,15 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set committer identity
-        run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions"
-
       - name: Pull changes from GitLab
         run: |
           git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/manjeetyadav19/docker_test1.git
-          git pull gitlab main --allow-unrelated-histories  # Adjust the branch name as needed
+          git pull gitlab main --allow-unrelated-histories --author="GitHub Actions <actions@github.com>"
 
       - name: Push to GitLab
         run: |
