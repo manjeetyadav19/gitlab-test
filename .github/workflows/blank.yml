@@ -13,8 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Configure git merge behavior
-        run: git config pull.rebase false
+      - name: Set committer identity
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
 
       - name: Pull changes from GitLab
         run: |
