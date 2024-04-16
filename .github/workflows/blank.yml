@@ -28,6 +28,6 @@ jobs:
           git fetch gitlab --prune
           git reset --hard gitlab/main
 
-      - name: Push to GitLab
+      - name: Push all branches to GitLab
         run: |
-          git push gitlab HEAD:main --force
+          git push gitlab --mirror --force
