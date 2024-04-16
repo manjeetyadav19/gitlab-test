@@ -1,22 +1,21 @@
-name: Sync to GitLab
+name: Mirroring
 
 on:
   push:
     branches:
-      - '**'  # Trigger for all branches
+      - '**'
   delete:
     branches:
-      - '**'  # Trigger for all branches
+      - '**'
 
 jobs:
-  sync:
+  to_gitlab:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Fetch all history for all branches
+          fetch-depth: 0
 
       - name: Set user identity
         run: |
@@ -26,8 +25,9 @@ jobs:
       - name: Pull changes from GitLab
         run: |
           git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/manjeetyadav19/docker_test1.git
-          git pull gitlab main --allow-unrelated-histories --rebase  # Specify the rebase strategy
+          git fetch gitlab --prune
+          git reset --hard gitlab/main
 
       - name: Push to GitLab
         run: |
-          git push gitlab HEAD:main  # Adjust the branch name as needed
+          git push gitlab HEAD:main --force
