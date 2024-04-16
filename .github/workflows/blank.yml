@@ -3,10 +3,8 @@ name: Mirroring
 on:
   push:
     branches:
-      - '**'
-  delete:
-    branches:
-      - '**'
+      - '**'  # Trigger for all branches
+      - '!gitlab-sync'  # Exclude the branch used for GitLab synchronization
 
 jobs:
   to_gitlab:
@@ -28,6 +26,6 @@ jobs:
           git fetch gitlab --prune
           git reset --hard gitlab/main
 
-      - name: Push all branches to GitLab
+      - name: Push changes to GitLab
         run: |
-          git push gitlab --mirror --force
+          git push gitlab HEAD:$GITHUB_REF --force
