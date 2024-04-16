@@ -3,7 +3,10 @@ name: Sync to GitLab
 on:
   push:
     branches:
-      - main  # Adjust the branch name as needed
+      - '**'  # Trigger for all branches
+  delete:
+    branches:
+      - '**'  # Trigger for all branches
 
 jobs:
   sync:
@@ -11,7 +14,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for all branches
 
       - name: Set user identity
         run: |
