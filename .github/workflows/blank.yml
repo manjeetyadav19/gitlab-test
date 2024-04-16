@@ -18,7 +18,11 @@ jobs:
           git config --global user.email "manjeetyadav19@gmail.com"
           git config --global user.name "manjeetyadav19"
 
-      - name: Push to GitLab
+      - name: Pull changes from GitLab
         run: |
           git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/manjeetyadav19/docker_test1.git
+          git pull gitlab main --allow-unrelated-histories
+
+      - name: Push to GitLab
+        run: |
           git push gitlab HEAD:main  # Adjust the branch name as needed
